@@ -42,16 +42,29 @@ function mouseDownListener(evt) {
 function mouseMoveListener(evt) {
 	if (!dragging_point) return;
 
-	const mouse_pos = getMousePos(c, evt);
-	dragging_point.x = mouse_pos.x;
-	dragging_point.y = mouse_pos.y;
+	const new_pos = getMousePos(c, evt);
 
-	// distance check
+	let overlapped = false;
+	p_list.every(p => {
+		if (p == dragging_point)
+			return false;
+		
+		if (new_pos.Overlapped(p)) {
+			overlapped = true;
+			return false;
+		}
 
-	if (dragging_point.x < 0) dragging_point.x = 0;
-	if (dragging_point.y < 0) dragging_point.y = 0;
-	if (dragging_point.x > CONST.col * CONST.grid_size) dragging_point.x = CONST.col * CONST.grid_size;
-	if (dragging_point.y > CONST.row * CONST.grid_size) dragging_point.y = CONST.row * CONST.grid_size;
+		return true;
+	});
+
+	if ( overlapped ) return;
+
+	if (new_pos.x < 0) new_pos.x = 0;
+	if (new_pos.y < 0) new_pos.y = 0;
+	if (new_pos.x > CONST.col * CONST.grid_size) new_pos.x = CONST.col * CONST.grid_size;
+	if (new_pos.y > CONST.row * CONST.grid_size) new_pos.y = CONST.row * CONST.grid_size;
+	dragging_point.x = new_pos.x;
+	dragging_point.y = new_pos.y;
 
 	needToDraw = true;
 }

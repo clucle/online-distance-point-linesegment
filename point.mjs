@@ -29,6 +29,21 @@ class Point {
 			(point.y > this.y - CONST.point_radius) &&
 			(point.y < this.y + CONST.point_radius));
 	}
+
+	Distance( point )
+	{
+		let x = this.x - point.x;
+		let y = this.y - point.y;
+		return Math.sqrt(x * x + y * y);
+	}
+
+	Overlapped( point )
+	{
+		if (this.Distance( point ) < 2 * CONST.point_radius)
+			return true;
+
+		return false;
+	}
 }
 
 export { Point };
