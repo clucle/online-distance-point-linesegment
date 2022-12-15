@@ -1,4 +1,4 @@
-
+import * as CONST from './constants.mjs';
 
 class Point {
 	constructor(x,y) {
@@ -19,6 +19,15 @@ class Point {
 	Dot( other )
 	{
 		return this.x * other.x + this.y * other.y;
+	}
+
+	Hover( point )
+	{
+		return (
+			(point.x > this.x - CONST.point_radius) && 
+			(point.x < this.x + CONST.point_radius) &&
+			(point.y > this.y - CONST.point_radius) &&
+			(point.y < this.y + CONST.point_radius));
 	}
 }
 
