@@ -22,3 +22,10 @@ export function drawPoint(ctx, p, color) {
     ctx.closePath();
     ctx.fill();
 }
+
+export function drawText(ctx, p, Text, color)
+{
+    ctx.font = "12px serif";
+    ctx.fillStyle = color;
+    ctx.fillText(Text, p.x, p.y);
+}

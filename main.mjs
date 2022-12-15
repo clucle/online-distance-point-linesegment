@@ -1,6 +1,6 @@
 
 import { Point } from './point.mjs';
-import { drawRect, drawLine, drawPoint } from './draw.mjs';
+import { drawRect, drawLine, drawPoint, drawText } from './draw.mjs';
 import { getMousePos } from './canvas_utils.mjs';
 import * as CONST from './constants.mjs';
 import * as COLOR from './colors.mjs';
@@ -77,6 +77,7 @@ function mouseUpListener(evt) {
 	window.removeEventListener("mousemove", mouseMoveListener, false);
 	window.removeEventListener("mouseup", mouseUpListener, false);
 	dragging_point = null;
+	needToDraw = true;
 }
 
 function updateBackground() {
@@ -132,10 +133,15 @@ function updateDistance() {
 
 function updatePoint() {
 	drawLine(ctx, p_a, p_b, COLOR.Black);
-	drawPoint(ctx, p_a, COLOR.Black);
-	drawPoint(ctx, p_b, COLOR.Black);
-	drawPoint(ctx, p_c, COLOR.StrongRed);
+	drawPoint(ctx, p_a, (p_a === dragging_point ? COLOR.VeryLightLimeGreen  : COLOR.Black));
+	drawPoint(ctx, p_b, p_b === dragging_point ? COLOR.VeryLightLimeGreen : COLOR.Black);
+	drawPoint(ctx, p_c, p_c === dragging_point ? COLOR.VeryLightLimeGreen : COLOR.StrongRed);
 	drawPoint(ctx, p_closest, COLOR.StrongRed);
+
+	drawText(ctx, p_a, "A", COLOR.Black);
+	drawText(ctx, p_b, "B", COLOR.Black);
+	drawText(ctx, p_c, "C", COLOR.Black);
+	drawText(ctx, p_closest, "Closest", COLOR.Black);
 }
 
 function updateBoard() {
