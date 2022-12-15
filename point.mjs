@@ -44,6 +44,32 @@ class Point {
 
 		return false;
 	}
+
+	Length()
+	{
+		return Math.sqrt(this.x * this.x + this.y * this.y);
+	}
+
+	Normalize()
+	{
+		return this.Div(this.Length());
+	}
+
+	Div( n )
+	{
+		return new Point(this.x / n, this.y / n);
+	}
+
+	Mul( n )
+	{
+		return new Point(this.x * n, this.y * n);
+	}
+
+	Copy( other )
+	{
+		this.x = other.x;
+		this.y = other.y;
+	}
 }
 
 export { Point };

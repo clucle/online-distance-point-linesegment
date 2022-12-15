@@ -14,6 +14,7 @@ const height = 600;
 const p_a = new Point(160, 160);
 const p_b = new Point(440, 440);
 const p_c = new Point(300, 160);
+const p_foot_perpendicular = new Point(0, 0);
 let p_list;
 
 let dragging_point = null;
@@ -95,23 +96,27 @@ function updateBackground() {
 function updateDistance() {
 	const v_ab = p_b.Sub(p_a);
 	const v_ac = p_c.Sub(p_a);
-	const cos_a = v_ab.Dot(v_ac);
-	if ( cos_a < 0 )
+	const dot_a = v_ab.Dot(v_ac);
+	if ( dot_a < 0 )
 	{
+		p_foot_perpendicular.Copy(p_a);
 		drawLine(ctx, p_c, p_a, COLOR.StrongRed);
 		return;
 	}
 	
 	const v_ba = p_a.Sub(p_b);
 	const v_bc = p_c.Sub(p_b);
-	const cos_b = v_ba.Dot(v_bc);
-	if ( cos_b < 0 )
+	const dot_b = v_ba.Dot(v_bc);
+	if ( dot_b < 0 )
 	{
+		p_foot_perpendicular.Copy(p_b);
 		drawLine(ctx, p_c, p_b, COLOR.StrongRed);
 		return;
 	}
 
-	// distance to line
+	p_foot_perpendicular.Copy(
+		p_a.Add(v_ab.Normalize().Mul(dot_a).Div(v_ab.Length())));
+	drawLine(ctx, p_c, p_foot_perpendicular, COLOR.StrongRed);
 }
 
 function updatePoint() {
@@ -119,6 +124,7 @@ function updatePoint() {
 	drawPoint(ctx, p_a, COLOR.Black);
 	drawPoint(ctx, p_b, COLOR.Black);
 	drawPoint(ctx, p_c, COLOR.StrongRed);
+	drawPoint(ctx, p_foot_perpendicular, COLOR.StrongRed);
 }
 
 function updateBoard() {
