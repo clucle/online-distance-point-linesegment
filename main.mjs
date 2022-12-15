@@ -50,8 +50,8 @@ function mouseMoveListener(evt) {
 
 	if (dragging_point.x < 0) dragging_point.x = 0;
 	if (dragging_point.y < 0) dragging_point.y = 0;
-	if (dragging_point.x > CONST.col * CONST.grid_size) dragging_point.x = col * grid_size;
-	if (dragging_point.y > CONST.row * CONST.grid_size) dragging_point.y = row * grid_size;
+	if (dragging_point.x > CONST.col * CONST.grid_size) dragging_point.x = CONST.col * CONST.grid_size;
+	if (dragging_point.y > CONST.row * CONST.grid_size) dragging_point.y = CONST.row * CONST.grid_size;
 
 	needToDraw = true;
 }
@@ -63,8 +63,8 @@ function mouseUpListener(evt) {
 }
 
 function updateBackground() {
-	const src = new Point(0, 0);
-	const dst = new Point(width, height);
+	const src = new Point(-10, -10);
+	const dst = new Point(width + 10, height + 10);
 	drawRect(ctx, src, dst, COLOR.White);
 
 	for (let c = 0; c <= CONST.col; c++) {
@@ -85,16 +85,16 @@ function updateDistance() {
 	const cos_a = v_ab.Dot(v_ac);
 	if ( cos_a < 0 )
 	{
-		// distance to a
+		drawLine(ctx, p_c, p_a, COLOR.StrongRed);
 		return;
 	}
 	
-	const v_ba = p_b.Sub(p_b);
+	const v_ba = p_a.Sub(p_b);
 	const v_bc = p_c.Sub(p_b);
 	const cos_b = v_ba.Dot(v_bc);
 	if ( cos_b < 0 )
 	{
-		// distance to b
+		drawLine(ctx, p_c, p_b, COLOR.StrongRed);
 		return;
 	}
 

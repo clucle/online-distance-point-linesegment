@@ -3,7 +3,7 @@ import * as CONST from './constants.mjs';
 export function drawRect(ctx, p1, p2, color) {
     ctx.fillStyle = color;
     ctx.fillRect(
-        CONST.blank + p1.x, CONST.blank + p1.y, CONST.blank + p2.x, CONST.blank + p2.y);
+        -CONST.blank + p1.x, -CONST.blank + p1.y, CONST.blank + p2.x, CONST.blank + p2.y);
 }
 
 export function drawLine(ctx, p1, p2, color) {
