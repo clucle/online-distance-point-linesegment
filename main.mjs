@@ -11,10 +11,13 @@ const ctx = c.getContext("2d");
 const width = 600;
 const height = 600;
 
+/* html setting */
+const text_distance = document.getElementById("text-distance");
+
 const p_a = new Point(160, 160);
 const p_b = new Point(440, 440);
 const p_c = new Point(300, 160);
-const p_foot_perpendicular = new Point(0, 0);
+const p_closest = new Point(0, 0);
 let p_list;
 
 let dragging_point = null;
@@ -93,14 +96,20 @@ function updateBackground() {
 	}
 }
 
+function updateClosestPoint(p)
+{
+	p_closest.Copy(p);
+	drawLine(ctx, p_c, p, COLOR.StrongRed);
+	text_distance.innerHTML = "Distance : " + p_c.Distance(p);
+}
+
 function updateDistance() {
 	const v_ab = p_b.Sub(p_a);
 	const v_ac = p_c.Sub(p_a);
 	const dot_a = v_ab.Dot(v_ac);
 	if ( dot_a < 0 )
 	{
-		p_foot_perpendicular.Copy(p_a);
-		drawLine(ctx, p_c, p_a, COLOR.StrongRed);
+		updateClosestPoint(p_a);
 		return;
 	}
 	
@@ -109,14 +118,11 @@ function updateDistance() {
 	const dot_b = v_ba.Dot(v_bc);
 	if ( dot_b < 0 )
 	{
-		p_foot_perpendicular.Copy(p_b);
-		drawLine(ctx, p_c, p_b, COLOR.StrongRed);
+		updateClosestPoint(p_b);
 		return;
 	}
 
-	p_foot_perpendicular.Copy(
-		p_a.Add(v_ab.Normalize().Mul(dot_a).Div(v_ab.Length())));
-	drawLine(ctx, p_c, p_foot_perpendicular, COLOR.StrongRed);
+	updateClosestPoint(p_a.Add(v_ab.Normalize().Mul(dot_a).Div(v_ab.Length())));
 }
 
 function updatePoint() {
@@ -124,7 +130,7 @@ function updatePoint() {
 	drawPoint(ctx, p_a, COLOR.Black);
 	drawPoint(ctx, p_b, COLOR.Black);
 	drawPoint(ctx, p_c, COLOR.StrongRed);
-	drawPoint(ctx, p_foot_perpendicular, COLOR.StrongRed);
+	drawPoint(ctx, p_closest, COLOR.StrongRed);
 }
 
 function updateBoard() {
