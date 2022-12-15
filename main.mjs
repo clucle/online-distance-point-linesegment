@@ -12,7 +12,7 @@ const width = 600;
 const height = 600;
 
 /* html setting */
-const text_distance = document.getElementById("text-distance");
+const text_distance = document.getElementById("text-description");
 
 const p_a = new Point(160, 160);
 const p_b = new Point(440, 440);
@@ -100,7 +100,6 @@ function updateClosestPoint(p)
 {
 	p_closest.Copy(p);
 	drawLine(ctx, p_c, p, COLOR.StrongRed);
-	text_distance.innerHTML = "Distance : " + p_c.Distance(p);
 }
 
 function updateDistance() {
@@ -123,6 +122,12 @@ function updateDistance() {
 	}
 
 	updateClosestPoint(p_a.Add(v_ab.Normalize().Mul(dot_a).Div(v_ab.Length())));
+
+	text_distance.innerHTML = "Point A : " + p_a.x + ", " + p_a.y + "<br />";
+	text_distance.innerHTML += "Point B : " + p_b.x + ", " + p_b.y + "<br />";
+	text_distance.innerHTML += "Point C : " + p_c.x + ", " + p_c.y + "<br />";
+	text_distance.innerHTML += "Point Closest : " + p_closest.x + ", " + p_closest.y + "<br />";
+	text_distance.innerHTML += "Distance : " + p_c.Distance(p_closest);
 }
 
 function updatePoint() {

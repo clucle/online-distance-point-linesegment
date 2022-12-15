@@ -4,10 +4,30 @@
   <style>
     body {
       width: 100%;
+      margin: 2rem 0 0 0 ;
     }
 
-    #boardWraaper {
+    footer {
+      text-align: right;
+    }
+
+    .board-wrapper {
       text-align: center;
+    }
+
+    .text-wrapper {
+      width: 100%;
+      margin: auto;
+      max-width: 600px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .container-padding-32px {
+      padding: 32px;
+      box-sizing: border-box;
     }
   </style>
 
@@ -24,10 +44,22 @@
 </head>
 
 <body>
-  <div id="boardWraaper">
+  <div class="text-wrapper text-center">
+    <h1>Online Distance Point Line Segment</h1>
+  </div>
+  <div class="board-wrapper">
     <canvas id="board" width="600" height="600"></canvas>
   </div>
-  <p id="text-distance"></p>
+  <div class="text-wrapper">
+    <h5 id="text-description"></h5>
+  </div>
+  <footer>
+    <div class="text-wrapper">
+      <small>source code : <a href="https://github.com/clucle/online-distance-point-linesegment">github</a></small>
+      <br>
+      <small>Copyright &copy; 2022 clucle. All Rights Reserved</small>
+    </div>
+  </footer>
 </body>
 
 <script type="module" src="main.mjs"></script>
