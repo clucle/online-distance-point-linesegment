@@ -133,7 +133,7 @@ function updateDistance() {
 
 function updatePoint() {
 	drawLine(ctx, p_a, p_b, COLOR.Black);
-	drawPoint(ctx, p_a, (p_a === dragging_point ? COLOR.VeryLightLimeGreen  : COLOR.Black));
+	drawPoint(ctx, p_a, p_a === dragging_point ? COLOR.VeryLightLimeGreen  : COLOR.Black);
 	drawPoint(ctx, p_b, p_b === dragging_point ? COLOR.VeryLightLimeGreen : COLOR.Black);
 	drawPoint(ctx, p_c, p_c === dragging_point ? COLOR.VeryLightLimeGreen : COLOR.StrongRed);
 	drawPoint(ctx, p_closest, COLOR.StrongRed);
